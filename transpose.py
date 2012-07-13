@@ -9,32 +9,42 @@ import sys
 # Here the global tuple of chords.
 globalchords=("A","A#","B","C","C#","D","D#","E","F","F#","G","G#")
 
-chord=str("")
-chord = input('What chord do you want to transpose?\n')
+chords=str("")
+newchords=str("")
+trans=str("")
 
-while chord not in globalchords:
-	if chord == "":
-		print("Please enter a chord")
-		chord = input('What chord do you want to transpose?\n')
-	elif chord.isnumeric():
-		print("This is a number, please enter a chord")
-		chord = input('What chord do you want to transpose?\n')
-	else:
-		print("This is definitely not a chord")
-		chord = input('What chord do you want to transpose?\n')
+chords = input('What chords do you want to transpose?\n')
+chords = chords.split(' ')
 
-# Making the transposition
-trans = input('What transposition do you want to apply? (in semi-ton, examples: +4 or -2)\n')
-trans = int(trans)
-ind=globalchords.index(chord)
-newind=ind+trans
-
-# Prevent the IndexOutOfRange.
-if newind >= 12:
-	while newind >= 12:
-		newind-=12
-
-# Calculating the new value of the chord
-newchord=globalchords.__getitem__(newind)
-print("The new chord is ",newchord)
+trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
+while trans.lstrip('+-').isnumeric() is False:
+	print('This is not a valid transposition value. Examples: 5 or -9 or +3.')
+	trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
 	
+
+trans = int(trans)
+
+for c in chords:
+	while c.upper().rstrip('M') not in globalchords:
+		if c.isnumeric():
+			print(c, "is a number, please enter a chord")
+			c = input('What chord do you want to transpose instead?\n')
+		else:
+			print(c," is definitely not a chord")
+			c = input('What chord do you want to transpose instead?\n')
+
+	# Making the transposition
+	ind=globalchords.index(c)
+	newind=ind+trans
+
+	# Prevent the IndexOutOfRange.
+	if newind >= 12:
+		while newind >= 12:
+			newind-=12
+
+	# Calculating the new value of the chord
+	newc=globalchords.__getitem__(newind)
+	newchords=newchords+newc+" "
+	
+print("The new chords are:")
+print(newchords)
