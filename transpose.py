@@ -13,7 +13,7 @@ chords=str("")
 newchords=str("")
 trans=str("")
 
-chords = input('What chords do you want to transpose?\n')
+chords = input('What chords do you want to transpose (space separated)?\n')
 chords = chords.split(' ')
 
 trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
@@ -21,8 +21,8 @@ while trans.lstrip('+-').isnumeric() is False:
 	print('This is not a valid transposition value. Examples: 5 or -9 or +3.')
 	trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
 	
-
 trans = int(trans)
+
 
 for c in chords:
 	while c.upper().rstrip('M') not in globalchords:
