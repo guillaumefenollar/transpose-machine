@@ -25,6 +25,8 @@ trans = int(trans)
 
 
 for c in chords:
+	hasMajor=False
+	hasMinor=False
 	while c.upper().rstrip('M') not in globalchords:
 		if c.isnumeric():
 			print(c, "is a number, please enter a chord")
@@ -33,8 +35,14 @@ for c in chords:
 			print(c," is definitely not a chord")
 			c = input('What chord do you want to transpose instead?\n')
 
+	#Detecting any suffix (minor,major...)
+	if c.endswith('M'):
+		hasMajor=True
+	elif c.endswith('m'):
+		hasMinor=True
+
 	# Making the transposition
-	ind=globalchords.index(c)
+	ind=globalchords.index(c.upper().rstrip('M'))
 	newind=ind+trans
 
 	# Prevent the IndexOutOfRange.
@@ -44,6 +52,13 @@ for c in chords:
 
 	# Calculating the new value of the chord
 	newc=globalchords.__getitem__(newind)
+	
+	#Addind the suffix
+	if hasMajor == True:
+		newc=newc+'M'
+	elif hasMinor == True:
+		newc=newc+'m'
+
 	newchords=newchords+newc+" "
 	
 print("The new chords are:")
