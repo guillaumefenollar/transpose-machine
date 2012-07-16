@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 #
 # This application is meant to transpose chords from a tone to another
-# TODO : accept a list of chords, coma separated
 
 import sys
 
@@ -14,6 +13,7 @@ newchords=str("")
 trans=str("")
 
 chords = input('What chords do you want to transpose (space separated)?\n')
+chords = chords.lstrip().rstrip()
 chords = chords.split(' ')
 
 trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
@@ -42,13 +42,11 @@ for c in chords:
 		hasMinor=True
 
 	# Making the transposition
-	ind=globalchords.index(c.upper().rstrip('M'))
-	newind=ind+trans
+	ind = globalchords.index(c.upper().rstrip('M'))
+	newind = ind + trans
 
-	# Prevent the IndexOutOfRange.
-	if newind >= 12:
-		while newind >= 12:
-			newind-=12
+	#Avoiding the IndexOutOfRange
+	newind = newind%12
 
 	# Calculating the new value of the chord
 	newc=globalchords.__getitem__(newind)
