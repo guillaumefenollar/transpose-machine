@@ -14,7 +14,7 @@ newchords=str("")
 trans=str("")
 
 chords = input('What chords do you want to transpose (space separated)?\n')
-chords = chords.lstrip().rstrip().chords.split(' ')
+chords = chords.lstrip().rstrip().split(' ')
 
 trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
 while trans.lstrip('+-').isnumeric() is False:
