@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # This application is meant to transpose chords from a tone to another
+#TODO take support of b (flat)
 
 import sys
 
@@ -13,8 +14,7 @@ newchords=str("")
 trans=str("")
 
 chords = input('What chords do you want to transpose (space separated)?\n')
-chords = chords.lstrip().rstrip()
-chords = chords.split(' ')
+chords = chords.lstrip().rstrip().chords.split(' ')
 
 trans = input('What transposition do you want to apply? (in semi-tone, examples: +4 or -2)\n')
 while trans.lstrip('+-').isnumeric() is False:
@@ -29,7 +29,7 @@ for c in chords:
 	hasMinor=False
 	while c.upper().rstrip('M') not in globalchords:
 		if c.isnumeric():
-			print(c, "is a number, please enter a chord")
+			print(c," is a number, please enter a chord")
 			c = input('What chord do you want to transpose instead?\n')
 		else:
 			print(c," is definitely not a chord")
@@ -51,7 +51,7 @@ for c in chords:
 	# Calculating the new value of the chord
 	newc=globalchords.__getitem__(newind)
 	
-	#Addind the suffix
+	#Adding the suffix
 	if hasMajor == True:
 		newc=newc+'M'
 	elif hasMinor == True:
@@ -61,3 +61,6 @@ for c in chords:
 	
 print("The new chords are:")
 print(newchords)
+
+
+#Send bugs and ideas to guillaume.fenollar@gmail.com. Thanks
